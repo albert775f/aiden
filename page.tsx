@@ -1,9 +1,9 @@
 // /frontend/app/page.tsx (Next.js Chat UI mit OpenAI-Modellauswahl)
 'use client'
 
-import { useState } from 'react'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
+import { Input } from '../components/ui/input'
+import { Button } from '../components/ui/button'
+import { Select, SelectItem } from '../components/ui/select'
 import { Select, SelectItem } from '@/components/ui/select'
 
 const MODELS = [
