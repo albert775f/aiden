@@ -1,4 +1,3 @@
-// /frontend/app/page.tsx (Next.js Chat UI mit OpenAI-Modellauswahl)
 'use client'
 
 import { useState } from 'react'
@@ -21,34 +20,31 @@ export default function Home() {
   const sendMessage = async () => {
     if (!input.trim()) return
     setLoading(true)
-
     setMessages(prev => [...prev, `🧑‍💻: ${input}`])
     setInput('')
-
     const res = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: input, model })
     })
-
     const data = await res.json()
     setMessages(prev => [...prev, `🤖: ${data.reply}`])
     setLoading(false)
   }
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Aiden.AI Chat</h1>
-      <div className="mb-2">
+    <div className="max-w-2xl mx-auto p-6">
+      <h1 className="text-3xl font-bold mb-4 text-center">Aiden.AI Chat</h1>
+      <div className="mb-4">
         <Select value={model} onValueChange={setModel}>
           {MODELS.map(({ label, value }) => (
             <SelectItem key={value} value={value}>{label}</SelectItem>
           ))}
         </Select>
       </div>
-      <div className="bg-gray-100 rounded-xl p-4 h-96 overflow-y-auto mb-4">
+      <div className="bg-gray-100 rounded-xl p-4 h-96 overflow-y-auto mb-4 space-y-2">
         {messages.map((msg, i) => (
-          <div key={i} className="mb-2 whitespace-pre-wrap">{msg}</div>
+          <div key={i} className="whitespace-pre-wrap">{msg}</div>
         ))}
         {loading && <div className="text-gray-500 italic">Aiden denkt ...</div>}
       </div>
