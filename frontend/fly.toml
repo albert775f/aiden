@@ -3,17 +3,27 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'aiden-frontend'
+app = 'aiden'
 primary_region = 'fra'
 
 [build]
+  builder = "heroku/buildpacks:20"  # wird ignoriert bei Docker/Next, aber harmless
+
+[env]
+  NODE_ENV = "production"
+
+[deploy]
+  release_command = "npm run build"
+  
+[experimental]
+  auto_rollback = true
 
 [http_service]
   internal_port = 3000
   force_https = true
   auto_stop_machines = 'stop'
   auto_start_machines = true
-  min_machines_running = 0
+  min_machines_running = 1
   processes = ['app']
 
 [[vm]]
